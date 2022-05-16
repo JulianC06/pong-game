@@ -1,0 +1,26 @@
+{
+  "name": "pong-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulianC06/pong-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JulianC06/pong-game/issues"
+  },
+  "homepage": "https://github.com/JulianC06/pong-game#readme",
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}
