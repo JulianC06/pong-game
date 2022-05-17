@@ -1,14 +1,10 @@
-import {RestartButton} from './components/restartButton.js'
 export class Game extends Phaser.Scene {
 
     constructor(){
-        super({key: 'gameScene'});
-        this.restartButton = new RestartButton(this);
-      
+        super({key: 'gameScene'}); 
     }
 
     init() {
-        const paddleVelocity = 350;
         this.ball;
         this.player1;
         this.player2;
@@ -27,11 +23,12 @@ export class Game extends Phaser.Scene {
       
         this.load.image('ball', '../assets/ball.png');
         this.load.image('paddle', '../assets/paddle.png');
-        this.restartButton.preload();
+       
         
     }
 
     create(){
+        //Create ball
         this.ball = this.physics.add.sprite(
             this.physics.world.bounds.width/2,
             this.physics.world.bounds.height/2,
@@ -40,6 +37,7 @@ export class Game extends Phaser.Scene {
         this.ball.setCollideWorldBounds(true);
         this.ball.setBounce(1,1);
 
+        //create player 1
         this.player1 = this.physics.add.sprite(
             this.physics.world.bounds.width- (this.ball.body.width/2+1),
             this.physics.world.bounds.height/2,
@@ -48,6 +46,7 @@ export class Game extends Phaser.Scene {
         this.player1.setImmovable(true);
         this.player1.setCollideWorldBounds(true);
 
+        //create player 2
         this.player2 = this.physics.add.sprite(
             this.ball.body.width/2+1,
             this.physics.world.bounds.height/2,
@@ -57,8 +56,8 @@ export class Game extends Phaser.Scene {
         this.player2.setCollideWorldBounds(true);
 
         this.cursors= this.input.keyboard.createCursorKeys();
-        this.cursors2.w=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W)
-        this.cursors2.s=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S)
+        this.cursors2.w=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.cursors2.s=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         this.physics.add.collider(this.ball, this.player1);
         this.physics.add.collider(this.ball,this.player2);
@@ -98,7 +97,10 @@ export class Game extends Phaser.Scene {
         this.textVictory.setVisible(false);
     }
 
+
+
     update(){
+        const paddleVelocity = 350;
         if(!this.isGameStart){
             const initialVelocityInX= (Math.random()*300)+300;
             const initialVelocityInY=(Math.random()*300)+300;
@@ -108,21 +110,23 @@ export class Game extends Phaser.Scene {
             this.isGameStart=true;
         }
 
-        if(this.ball.body.x > this.player1.body.x-9.3){
+        if(this.ball.body.x > (this.player1.body.x-9.3)){
             this.points1 += 1;
             this.textPoints1.text = this.points1;
-           //console.log(points1);
+           //}
+           console.log(this.points1);
 
             if(this.points1 == this.pointsVictory){
                 this.ball.setVelocityX(0);
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
-                this.textVictory.text='Player 1 WON';
+                this.textVictory.text='Player 1';
                 this.textVictory.setVisible(true);
+                this.showGameOver(textVictory);
             }
         }
 
-       if(this.ball.body.x+10.5 < this.player2.body.x){
+       if((this.ball.body.x+10.5) < this.player2.body.x){
             this.points2+=1;
             this.textPoints2.text = this.points2;
            console.log(this.points2);
@@ -131,9 +135,9 @@ export class Game extends Phaser.Scene {
                 this.ball.setVelocityX(0);
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
-                this.textVictory.text='Player 2 WON';
+                this.textVictory.text='Player 2';
                 this.textVictory.setVisible(true);
-                this.restartButton.create();
+                this.showGameOver(textVictory);
             }
 
         }
@@ -142,28 +146,35 @@ export class Game extends Phaser.Scene {
         this.player2.body.setVelocityY(0);
 
        if(this.cursors.up.isDown){
-            this.player1.body.setVelocityY(-1*this.paddleVelocity);
+            this.player1.body.setVelocityY(-1*paddleVelocity);
         }
 
         if(this.cursors.down.isDown){
-            this.player1.body.setVelocityY(this.paddleVelocity);
+            this.player1.body.setVelocityY(paddleVelocity);
         }
 
         if(this.cursors2.w.isDown){
-            this.player2.body.setVelocityY(-1*this.paddleVelocity);
+            this.player2.body.setVelocityY(-1*paddleVelocity);
         }
 
         if(this.cursors2.s.isDown){
-            this.player2.body.setVelocityY(this.paddleVelocity);
+            this.player2.body.setVelocityY(paddleVelocity);
         }
 
 
-        if(this.ball.body.velocity.y > this.paddleVelocity){
-            this.ball.body.setVelocityY(this.paddleVelocity);
+        if(this.ball.body.velocity.y > paddleVelocity){
+            this.ball.body.setVelocityY(paddleVelocity);
         }
 
-        if(this.ball.body.velocity.y < -this.paddleVelocity){
-            this.ball.body.setVelocityY(-1*this.paddleVelocity);
+        if(this.ball.body.velocity.y < -paddleVelocity){
+            this.ball.body.setVelocityY(-1*paddleVelocity);
         }
+    }
+
+
+    showGameOver(textPlayerWinner){
+        this.registry.events.emit('nameWinnerPlayer',  textPlayerWinner);
+        this.scene.add("endGameScene", new EndGame);
+        this.scene.start('gameScene');
     }
 }
