@@ -1,6 +1,6 @@
 import {RestartButton} from './components/restartButton.js'
 
-export class EndGame extends Phaser.Scene(){
+export class EndGame extends Phaser.Scene {
 
     constructor(){
         super({key: 'endGameScene'});
@@ -10,15 +10,18 @@ export class EndGame extends Phaser.Scene(){
     preload(){
         this.restartButton.preload();
         this.load.image("titleGameOverImage","./assets/titleGameOver.png");
-        this.registry.events.on('nameWinnerPlayer', (textPlayerWinner) =>{
-            this.textWinner =  textPlayerWinner+'HAS WON';
-        });
+        this.GameScene = this.scene.get('GameScene');
+        
         
     }
 
     create(){
         this.restartButton.create();
-        this.add.image(400,300, "titleGameOverImage");
+        this.add.image(512,200, "titleGameOverImage");
+        this.registry.events.on('nameWinnerPlayer', (textPlayerWinner) =>{
+            console.log(textPlayerWinner);
+            this.textWinner =  textPlayerWinner+'HAS WON';
+        });
 
         this.textPlayerWinner=this.add.text(
             this.physics.world.bounds.width/2,
@@ -30,15 +33,10 @@ export class EndGame extends Phaser.Scene(){
                 align:"center"
             }
         );
+       
+    }
 
-
-        this.playButton = this.add.image(550,300, "playButtonImage").setDepth(1);
-
-        this.playButton.setInteractive();
-
-        this.playButton.on("pointerdown" ,() =>{
-            this.scene.start('gameScene');
-
-        })
+    update(){
+    
     }
 }

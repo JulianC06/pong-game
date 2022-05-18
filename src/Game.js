@@ -122,7 +122,7 @@ export class Game extends Phaser.Scene {
                 this.ball.body.x=100;
                 this.textVictory.text='Player 1';
                 this.textVictory.setVisible(true);
-                this.showGameOver(textVictory);
+                this.showGameOver(this.textVictory);
             }
         }
 
@@ -137,7 +137,7 @@ export class Game extends Phaser.Scene {
                 this.ball.body.x=100;
                 this.textVictory.text='Player 2';
                 this.textVictory.setVisible(true);
-                this.showGameOver(textVictory);
+                this.showGameOver(this.textVictory);
             }
 
         }
@@ -173,8 +173,7 @@ export class Game extends Phaser.Scene {
 
 
     showGameOver(textPlayerWinner){
-        this.registry.events.emit('nameWinnerPlayer',  textPlayerWinner);
-        this.scene.add("endGameScene", new EndGame);
-        this.scene.start('gameScene');
+        this.registry.events.emit('nameWinnerPlayer', textPlayerWinner+'');
+        this.scene.start('endGameScene');
     }
 }
