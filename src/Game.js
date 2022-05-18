@@ -101,8 +101,6 @@ export class Game extends Phaser.Scene {
         if(this.ball.body.x > (this.player1.body.x-9.3)){
             this.points1 += 1;
             this.textPoints1.text = this.points1;
-           //}
-           console.log(this.points1);
 
             if(this.points1 == this.pointsVictory){
                 this.ball.setVelocityX(0);
@@ -116,7 +114,6 @@ export class Game extends Phaser.Scene {
        if((this.ball.body.x+10.5) < this.player2.body.x){
             this.points2+=1;
             this.textPoints2.text = this.points2;
-           console.log(this.points2);
 
             if(this.points2 == this.pointsVictory){
                 this.ball.setVelocityX(0);
@@ -159,7 +156,6 @@ export class Game extends Phaser.Scene {
 
 
     showGameOver(textPlayerWinner){
-       // this.events.emit('playerWinner', (winnerName : textPlayerWinner});
         this.scene.start('endGameScene', {winnerName : textPlayerWinner});
     }
 }
