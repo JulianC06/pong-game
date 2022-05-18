@@ -83,18 +83,6 @@ export class Game extends Phaser.Scene {
                 align:"center"
             }
         );
-
-        this.textVictory=this.add.text(
-            this.physics.world.bounds.width/2,
-            this.physics.world.bounds.height/2,
-            '-',
-            {
-                font:"48px Verdana",
-                fill: "#fff",
-                align:"center"
-            }
-        );
-        this.textVictory.setVisible(false);
     }
 
 
@@ -121,7 +109,6 @@ export class Game extends Phaser.Scene {
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
                 this.textVictory.text='Player 1';
-                this.textVictory.setVisible(true);
                 this.showGameOver(this.textVictory);
             }
         }
@@ -136,7 +123,6 @@ export class Game extends Phaser.Scene {
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
                 this.textVictory.text='Player 2';
-                this.textVictory.setVisible(true);
                 this.showGameOver(this.textVictory);
             }
 
