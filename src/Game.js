@@ -106,7 +106,7 @@ export class Game extends Phaser.Scene {
                 this.ball.setVelocityX(0);
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
-                this.textVictory.text='Player 1';
+                this.textVictory ='Player 1';
                 this.showGameOver(this.textVictory);
             }
         }
@@ -119,7 +119,7 @@ export class Game extends Phaser.Scene {
                 this.ball.setVelocityX(0);
                 this.ball.setVelocityY(0);
                 this.ball.body.x=100;
-                this.textVictory.text='Player 2';
+                this.textVictory ='Player 2';
                 this.showGameOver(this.textVictory);
             }
 

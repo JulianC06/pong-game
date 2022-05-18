@@ -16,7 +16,7 @@ export class EndGame extends Phaser.Scene {
     }
     init(data){
         this.GameScene = this.scene.get('GameScene');
-        this.textWinner = data.winnerName.text +' has won';
+        this.textWinner = data.winnerName +' has won';
     }
 
     create(){
