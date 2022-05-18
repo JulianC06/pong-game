@@ -173,7 +173,7 @@ export class Game extends Phaser.Scene {
 
 
     showGameOver(textPlayerWinner){
-        this.registry.events.emit('nameWinnerPlayer', textPlayerWinner+'');
-        this.scene.start('endGameScene');
+       // this.events.emit('playerWinner', (winnerName : textPlayerWinner});
+        this.scene.start('endGameScene', {winnerName : textPlayerWinner});
     }
 }

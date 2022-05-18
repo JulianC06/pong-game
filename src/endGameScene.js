@@ -10,22 +10,19 @@ export class EndGame extends Phaser.Scene {
     preload(){
         this.restartButton.preload();
         this.load.image("titleGameOverImage","./assets/titleGameOver.png");
+       
+        
+        
+    }
+    init(data){
         this.GameScene = this.scene.get('GameScene');
-        
-        
+        this.textWinner = data.winnerName.text +' has won';
     }
 
     create(){
         this.restartButton.create();
         this.add.image(512,200, "titleGameOverImage");
-        this.registry.events.on('nameWinnerPlayer', (textPlayerWinner) =>{
-            console.log(textPlayerWinner);
-            this.textWinner =  textPlayerWinner+'HAS WON';
-        });
-
-        this.textPlayerWinner=this.add.text(
-            this.physics.world.bounds.width/2,
-            this.physics.world.bounds.height/2,
+        this.textPlayerWinner=this.add.text(272,400,
             this.textWinner,
             {
                 font:"48px Verdana",
@@ -33,7 +30,6 @@ export class EndGame extends Phaser.Scene {
                 align:"center"
             }
         );
-       
     }
 
     update(){
